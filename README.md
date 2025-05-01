@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Clinic EMR
 
 A desktop Electronic Medical Record (EMR) app built with Python and SQLite, designed for managing a small clinic setting.
@@ -38,3 +39,7 @@ A desktop Electronic Medical Record (EMR) app built with Python and SQLite, desi
 
 ## Status
 Work in progress
+=======
+# clinic_EMR
+My first full python project : A desktop EMR system managing patient records.
+>>>>>>> c032a41349e97038da1dcbc271fc1ab79d87ec6d
