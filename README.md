@@ -3,10 +3,32 @@
 A desktop Electronic Medical Record (EMR) app built with Python and SQLite, designed for managing a small clinic setting.
 
 ## Features
-- Add new patients with basic info
-- View patient info and visit records
-- Create new visit records
-- Secure doctor login with hashed passwords
+- Add/view patient records
+- Record patient visits
+- Search patient by HN
+- Secure login system (upcoming)
+- Clean separation of logic using MVC
+
+## Project structure (MVC)
+clinic_EMR/
+├── app.py # Main application
+├── db.py # DB connection helper
+├── login.py # Application main page
+├── setup_db.py # Database setup
+├── models/ # Database models (SQL logic)
+│ └── patient_model.py
+│ └── visit_model.py
+├── controllers/ # Business logic (glue layer)
+│ └── patient_controller.py
+│ └── visit_controller.py
+├── views/ # GUI (Tkinter Frames)
+│ └── add_patient_frame.py
+│ └── create_visit_frame.py
+│ └── doctor_dashboard_frame.py
+│ └── view_patient_frame.py
+├── README.md
+├── .gitignore
+
 
 ## Technologies
 - Python 3.x
@@ -37,4 +59,10 @@ A desktop Electronic Medical Record (EMR) app built with Python and SQLite, desi
    ```
 
 ## Status
-Work in progress
+recent MVC update
+
+## Future plan
+- Improve UX/UI with modern Tkinter styling
+- Password hashing with bcrypt for login secure
+- Appointment management feature
+- Switch from SQLite to PostgreSQL for scalbiliity
