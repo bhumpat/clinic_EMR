@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 from login import LoginFrame
-from doctor_dashboard import DashboardFrame
-from add_patient import AddPatientFrame
-from view_patient import ViewPatientFrame
-from create_visit import CreateVisitFrame
+from views.doctor_dashboard_frame import DashboardFrame
+from views.add_patient_frame import AddPatientFrame
+from views.view_patient_frame import ViewPatientFrame
+from views.create_visit_frame import CreateVisitFrame
 
 class App(tk.Tk):
     def __init__(self):

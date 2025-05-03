@@ -2,53 +2,46 @@ import tkinter as tk
 from tkinter import ttk
 import tkinter.messagebox
 from db import get_connection
+from controllers.patient_controller import PatientController
+from controllers.visit_controller import VisitController
 
 class ViewPatientFrame(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+        self.patient_controller = PatientController()
+        self.visit_controller = VisitController()
         self.controller = controller
-
         #create widget
         hn_label = ttk.Label(self, text = "HN")
         hn_label.pack
-        self.hn = tk.StringVar()
-        hn_entry = ttk.Entry(self, textvariable = self.hn)
+
+        hn = tk.StringVar()
+        hn_entry = ttk.Entry(self, textvariable = hn)
         hn_entry.pack()
-        search = ttk.Button(self, text = "search", command = self.search)
+
+        search = ttk.Button(self, text = "search", command = lambda: self.search(hn.get()))
         search.pack()
+
         back = ttk.Button(self, text = "back", command = self.back)
         back.pack()
 
-    def search(self):
-        #connnect to database
-        conn, cursor = get_connection()
-        cursor.execute('''
-        SELECT * FROM patient WHERE hn = ?
-                        ''', (self.hn.get(),))
-        result = cursor.fetchone()
+    def search(self, patient_hn):
+        result = self.visit_controller.search(patient_hn)
+        self.controller.set_current_patient(patient_hn)
+        patient_info = self.patient_controller.view_patient(patient_hn)
         if result is not None:
             view = tk.Toplevel()
             view.geometry("500x500")
-            patient_hn = result[0]
-            name_label = ttk.Label(view, text = f"Name : {result[1]}")
+            name_label = ttk.Label(view, text = f"Name : {patient_info[1]}")
             name_label.pack(anchor="w")
-            dob_label = ttk.Label(view, text = f"DOB : {result[2]}")
+            dob_label = ttk.Label(view, text = f"DOB : {patient_info[2]}")
             dob_label.pack(anchor="w")
-            gender_label = ttk.Label(view, text = f"Gender : {result[3]}")
+            gender_label = ttk.Label(view, text = f"Gender : {patient_info[3]}")
             gender_label.pack(anchor="w")
-            phone_label = ttk.Label(view, text = f"Phone : {result[4]}")
+            phone_label = ttk.Label(view, text = f"Phone : {patient_info[4]}")
             phone_label.pack(anchor="w")
-            cursor.execute('''
-            SELECT * FROM visit WHERE patient_hn = ?
-                            ''', (patient_hn, ))
-            visit = cursor.fetchall()
-            self.controller.set_current_patient(patient_hn)
-            cursor.execute('''
-            SELECT COUNT(visit_id) FROM visit WHERE patient_hn = ?
-                               ''', (patient_hn, ))
-            visit_count = cursor.fetchone()
-            conn.close()
+            visit, visit_count = self.visit_controller.search(patient_hn)
             for _ in range(visit_count[0]):
                 ttk.Label(view, text = f"visit {_+1}").pack()
                 view_btn = ttk.Button(view, text = "view", command = lambda visit_id = visit[_][0]: self.view(visit_id))

@@ -12,6 +12,7 @@ cursor.execute('''
                role TEXT)
 ''')
 
+
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS patient(
                hn INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,6 +21,7 @@ cursor.execute('''
                gender TEXT,
                phone TEXT)         
 ''')
+
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS visit(
