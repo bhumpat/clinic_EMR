@@ -10,6 +10,7 @@ A desktop Electronic Medical Record (EMR) app built with Python and SQLite, desi
 - Clean separation of logic using MVC
 
 ## Project structure (MVC)
+```bash
 clinic_EMR/
 ├── app.py # Main application
 ├── db.py # DB connection helper
@@ -28,7 +29,7 @@ clinic_EMR/
 │ └── view_patient_frame.py
 ├── README.md
 ├── .gitignore
-
+```
 
 ## Technologies
 - Python 3.x
